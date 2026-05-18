@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import './App.css'
 
 const HUMAN_FACTIONS = ['Incense', 'Jadeon', 'Lupin', 'Modo', 'Skysong', 'Vim']
-const ARDEN_FACTIONS = ['Arden', 'Balo', 'Celan', 'Forta', 'Rayan', 'Voida']
+const ATHAN_FACTIONS = ['Arden', 'Balo', 'Celan', 'Forta', 'Rayan', 'Voida']
 const REALM_COUNT = 14
 const REALMS = Array.from({ length: REALM_COUNT }, (_, index) => index + 1)
 
@@ -120,13 +120,13 @@ function App() {
                     </div>
                   </section>
 
-                  <section className="faction-column" aria-label={`Realm ${realmNumber} Arden factions`}>
-                    <p className="faction-heading">Arden</p>
+                  <section className="faction-column" aria-label={`Realm ${realmNumber} Athan factions`}>
+                    <p className="faction-heading">Athan</p>
                     <div className="radio-list">
-                      {ARDEN_FACTIONS.map((faction) => (
+                      {ATHAN_FACTIONS.map((faction) => (
                         <label
                           className={`radio-option ${realmSelections[realmNumber - 1] === faction ? 'selected' : ''}`}
-                          key={`${realmNumber}-arden-${faction}`}
+                          key={`${realmNumber}-athan-${faction}`}
                         >
                           <input
                             type="radio"
