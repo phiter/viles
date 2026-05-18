@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700&display=swap');
+
+:root {
+  --bg-deep: #f7efe3;
+  --bg-mid: #efe0c8;
+  --ink: #1f1a17;
+  --ink-soft: #4d443e;
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --accent: #d36b22;
+  --accent-strong: #b54f0b;
+  --success: #207227;
+  --error: #9d1f1f;
+  --border: rgba(52, 34, 20, 0.2);
+  --shadow: 0 14px 40px rgba(64, 37, 18, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100dvh;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at 20% 12%, #fff5e1 0, transparent 32%),
+    radial-gradient(circle at 82% 86%, #f9d7aa 0, transparent 30%),
+    linear-gradient(155deg, var(--bg-deep), var(--bg-mid));
+  position: relative;
+  overflow: hidden;
+}
+
+.ornament {
+  position: absolute;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 999px;
+  border: 2px dashed rgba(195, 125, 73, 0.22);
+  pointer-events: none;
+  animation: bob 8s ease-in-out infinite;
+}
+
+.ornament-top {
+  top: -6rem;
+  right: -4.5rem;
+}
+
+.ornament-bottom {
+  bottom: -5rem;
+  left: -4rem;
+  animation-delay: 1.4s;
+}
+
+.card {
+  width: min(100%, 42rem);
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.15rem;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 1;
+  animation: rise 350ms ease-out;
+}
+
+.header h1 {
+  margin: 0.35rem 0 0;
+  font-family: 'Sora', 'Avenir Next', sans-serif;
+  font-size: clamp(1.35rem, 5vw, 1.9rem);
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-size: 0.7rem;
+  color: var(--accent-strong);
+}
+
+.subtext {
+  margin: 0.45rem 0 1rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.realm-list {
+  display: grid;
+  gap: 0.62rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.realm-row {
+  padding: 0.62rem;
+  border-radius: 0.82rem;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+}
+
+.realm-row label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.realm-title {
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--ink);
+}
+
+.realm-row select {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(55, 31, 15, 0.24);
+  padding: 0.65rem 0.78rem;
+  font-size: 0.95rem;
+  font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+  background: #fff;
+  color: var(--ink);
+}
+
+.realm-row select:focus {
+  outline: 2px solid rgba(211, 107, 34, 0.34);
+  outline-offset: 2px;
+}
+
+.footer {
+  margin-top: 1rem;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.footer button {
+  border: 0;
+  border-radius: 0.82rem;
+  padding: 0.8rem 1rem;
+  font-size: 0.96rem;
+  font-family: 'Sora', 'Avenir Next', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 11px 24px rgba(181, 79, 11, 0.3);
+  transition: transform 150ms ease, filter 150ms ease;
+}
+
+.footer button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.36);
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.footer button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.hint {
+  margin: 0.58rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.hint.success {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.hint.error {
+  color: var(--error);
+  font-weight: 600;
+}
+
+@media (min-width: 720px) {
+  .page {
+    padding: 2rem;
+  }
+
+  .card {
+    padding: 1.35rem;
+  }
+
+  .realm-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
