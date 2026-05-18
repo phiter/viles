@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 const HUMAN_FACTIONS = ['Incense', 'Jadeon', 'Lupin', 'Modo', 'Skysong', 'Vim']
@@ -12,6 +12,13 @@ function App() {
   )
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
   const [shareState, setShareState] = useState<'idle' | 'shared' | 'failed'>('idle')
+  const [isDark, setIsDark] = useState(
+    () => globalThis.matchMedia('(prefers-color-scheme: dark)').matches,
+  )
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light'
+  }, [isDark])
   const hasAnySelection = useMemo(
     () => realmSelections.some((selection) => selection.trim().length > 0),
     [realmSelections],
@@ -85,7 +92,17 @@ function App() {
 
       <section className="card">
         <header className="header">
-          <p className="eyebrow">Jade Dynasty Realm Picker</p>
+          <div className="header-top">
+            <p className="eyebrow">Jade Dynasty Realm Picker</p>
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={() => setIsDark((d) => !d)}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDark ? '☀️' : '🌙'}
+            </button>
+          </div>
           <h1>Choose A Faction For All 14 Realms</h1>
           <p className="subtext">Pick one faction per realm. Then copy the final lineup in one tap.</p>
         </header>

@@ -1,18 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700&display=swap');
 
 :root {
-  --bg-deep: #f7efe3;
-  --bg-mid: #efe0c8;
-  --ink: #1f1a17;
-  --ink-soft: #4d443e;
-  --surface: rgba(255, 255, 255, 0.86);
-  --surface-strong: rgba(255, 255, 255, 0.96);
-  --accent: #d36b22;
-  --accent-strong: #b54f0b;
-  --success: #207227;
-  --error: #9d1f1f;
-  --border: rgba(52, 34, 20, 0.2);
-  --shadow: 0 14px 40px rgba(64, 37, 18, 0.14);
+  --bg-deep: #f1f5f9;
+  --bg-mid: #e2e8f0;
+  --ink: #0f172a;
+  --ink-soft: #475569;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --accent: #6366f1;
+  --accent-strong: #4f46e5;
+  --success: #16a34a;
+  --error: #dc2626;
+  --border: rgba(15, 23, 42, 0.12);
+  --shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
+  --faction-col-bg: #fff;
+  --completed-bg-start: rgba(99, 102, 241, 0.18);
+  --completed-bg-end: rgba(99, 102, 241, 0.09);
+  --completed-border: rgba(79, 70, 229, 0.5);
+  --radio-selected-bg: rgba(99, 102, 241, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg-deep: #0f172a;
+    --bg-mid: #1e293b;
+    --ink: #f1f5f9;
+    --ink-soft: #94a3b8;
+    --surface: rgba(15, 23, 42, 0.9);
+    --surface-strong: rgba(30, 41, 59, 0.97);
+    --accent: #818cf8;
+    --accent-strong: #a5b4fc;
+    --success: #4ade80;
+    --error: #f87171;
+    --border: rgba(148, 163, 184, 0.14);
+    --shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+    --faction-col-bg: rgba(15, 23, 42, 0.85);
+    --completed-bg-start: rgba(129, 140, 248, 0.28);
+    --completed-bg-end: rgba(129, 140, 248, 0.14);
+    --completed-border: rgba(165, 180, 252, 0.55);
+    --radio-selected-bg: rgba(129, 140, 248, 0.15);
+  }
+}
+
+[data-theme='dark'] {
+    --bg-deep: #0f172a;
+    --bg-mid: #1e293b;
+    --ink: #f1f5f9;
+    --ink-soft: #94a3b8;
+    --surface: rgba(15, 23, 42, 0.9);
+    --surface-strong: rgba(30, 41, 59, 0.97);
+    --accent: #818cf8;
+    --accent-strong: #a5b4fc;
+    --success: #4ade80;
+    --error: #f87171;
+    --border: rgba(148, 163, 184, 0.14);
+    --shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+    --faction-col-bg: rgba(15, 23, 42, 0.85);
+    --completed-bg-start: rgba(129, 140, 248, 0.28);
+    --completed-bg-end: rgba(129, 140, 248, 0.14);
+    --completed-border: rgba(165, 180, 252, 0.55);
+    --radio-selected-bg: rgba(129, 140, 248, 0.15);
 }
 
 * {
@@ -22,10 +69,7 @@
 .page {
   min-height: 100dvh;
   padding: 1.25rem;
-  background:
-    radial-gradient(circle at 20% 12%, #fff5e1 0, transparent 32%),
-    radial-gradient(circle at 82% 86%, #f9d7aa 0, transparent 30%),
-    linear-gradient(155deg, var(--bg-deep), var(--bg-mid));
+  background: var(--bg-deep);
   position: relative;
   overflow: hidden;
 }
@@ -35,7 +79,7 @@
   width: 13rem;
   height: 13rem;
   border-radius: 999px;
-  border: 2px dashed rgba(195, 125, 73, 0.22);
+  border: 2px dashed rgba(99, 102, 241, 0.18);
   pointer-events: none;
   animation: bob 8s ease-in-out infinite;
 }
@@ -64,6 +108,29 @@
   z-index: 1;
   animation: rise 350ms ease-out;
   user-select: none;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.theme-toggle {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background: var(--surface-strong);
+  padding: 0.3rem 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-mid);
 }
 
 .header h1 {
@@ -106,8 +173,8 @@
 }
 
 .realm-row.completed {
-  background: linear-gradient(135deg, rgba(211, 107, 34, 0.1), rgba(211, 107, 34, 0.04));
-  border-color: rgba(181, 79, 11, 0.28);
+  background: linear-gradient(135deg, var(--completed-bg-start), var(--completed-bg-end));
+  border-color: var(--completed-border);
 }
 
 .realm-fieldset {
@@ -133,7 +200,7 @@
   border: 1px solid var(--border);
   border-radius: 0.72rem;
   padding: 0.5rem;
-  background: #fff;
+  background: var(--faction-col-bg);
 }
 
 .faction-heading {
@@ -165,7 +232,7 @@
 }
 
 .radio-option.selected {
-  background: rgba(211, 107, 34, 0.12);
+  background: var(--radio-selected-bg);
 }
 
 .footer {
@@ -188,7 +255,7 @@
   letter-spacing: 0.01em;
   color: #fff;
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  box-shadow: 0 11px 24px rgba(181, 79, 11, 0.3);
+  box-shadow: 0 11px 24px rgba(79, 70, 229, 0.28);
   transition: transform 150ms ease, filter 150ms ease;
 }
 
