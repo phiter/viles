@@ -63,6 +63,7 @@
   position: relative;
   z-index: 1;
   animation: rise 350ms ease-out;
+  user-select: none;
 }
 
 .header h1 {
@@ -101,33 +102,70 @@
   border-radius: 0.82rem;
   border: 1px solid var(--border);
   background: var(--surface-strong);
+  transition: background-color 160ms ease, border-color 160ms ease;
 }
 
-.realm-row label {
-  display: grid;
-  gap: 0.4rem;
+.realm-row.completed {
+  background: linear-gradient(135deg, rgba(211, 107, 34, 0.1), rgba(211, 107, 34, 0.04));
+  border-color: rgba(181, 79, 11, 0.28);
+}
+
+.realm-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .realm-title {
   font-weight: 700;
   font-size: 0.94rem;
   color: var(--ink);
+  margin-bottom: 0.45rem;
 }
 
-.realm-row select {
-  width: 100%;
-  border-radius: 0.7rem;
-  border: 1px solid rgba(55, 31, 15, 0.24);
-  padding: 0.65rem 0.78rem;
-  font-size: 0.95rem;
-  font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+.faction-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.faction-column {
+  border: 1px solid var(--border);
+  border-radius: 0.72rem;
+  padding: 0.5rem;
   background: #fff;
+}
+
+.faction-heading {
+  margin: 0 0 0.4rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.radio-list {
+  display: grid;
+  gap: 0.36rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.88rem;
   color: var(--ink);
 }
 
-.realm-row select:focus {
-  outline: 2px solid rgba(211, 107, 34, 0.34);
-  outline-offset: 2px;
+.radio-option input {
+  accent-color: var(--accent-strong);
+}
+
+.radio-option.selected {
+  background: rgba(211, 107, 34, 0.12);
 }
 
 .footer {

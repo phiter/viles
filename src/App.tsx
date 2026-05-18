@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import './App.css'
 
-const HUMAN_FACTIONS = ['Incense Mage', 'Jadeon', 'Lupin', 'Modo', 'Skysong', 'Vim']
+const HUMAN_FACTIONS = ['Incense', 'Jadeon', 'Lupin', 'Modo', 'Skysong', 'Vim']
 const ARDEN_FACTIONS = ['Arden', 'Balo', 'Celan', 'Forta', 'Rayan', 'Voida']
 const REALM_COUNT = 14
 const REALMS = Array.from({ length: REALM_COUNT }, (_, index) => index + 1)
@@ -85,38 +85,63 @@ function App() {
 
       <section className="card">
         <header className="header">
-          <p className="eyebrow">Realm Faction Planner</p>
+          <p className="eyebrow">Jade Dynasty Realm Picker</p>
           <h1>Choose A Faction For All 14 Realms</h1>
           <p className="subtext">Pick one faction per realm. Then copy the final lineup in one tap.</p>
         </header>
 
         <ul className="realm-list" aria-label="Realm faction picks">
           {REALMS.map((realmNumber) => (
-            <li className="realm-row" key={realmNumber}>
-              <label>
-                <span className="realm-title">Realm {realmNumber}</span>
-                <select
-                  value={realmSelections[realmNumber - 1]}
-                  onChange={(event) => setSelectionForRealm(realmNumber, event.target.value)}
-                  aria-label={`Realm ${realmNumber} faction`}
-                >
-                  <option value="">Select faction</option>
-                  <optgroup label="Human">
-                    {HUMAN_FACTIONS.map((faction) => (
-                      <option key={`${realmNumber}-human-${faction}`} value={faction}>
-                        {faction}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Arden">
-                    {ARDEN_FACTIONS.map((faction) => (
-                      <option key={`${realmNumber}-arden-${faction}`} value={faction}>
-                        {faction}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </label>
+            <li
+              className={`realm-row ${realmSelections[realmNumber - 1] ? 'completed' : ''}`}
+              key={realmNumber}
+            >
+              <fieldset className="realm-fieldset">
+                <legend className="realm-title">Realm {realmNumber}</legend>
+                <div className="faction-columns">
+                  <section className="faction-column" aria-label={`Realm ${realmNumber} Human factions`}>
+                    <p className="faction-heading">Human</p>
+                    <div className="radio-list">
+                      {HUMAN_FACTIONS.map((faction) => (
+                        <label
+                          className={`radio-option ${realmSelections[realmNumber - 1] === faction ? 'selected' : ''}`}
+                          key={`${realmNumber}-human-${faction}`}
+                        >
+                          <input
+                            type="radio"
+                            name={`realm-${realmNumber}`}
+                            value={faction}
+                            checked={realmSelections[realmNumber - 1] === faction}
+                            onChange={(event) => setSelectionForRealm(realmNumber, event.target.value)}
+                          />
+                          <span>{faction}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section className="faction-column" aria-label={`Realm ${realmNumber} Arden factions`}>
+                    <p className="faction-heading">Arden</p>
+                    <div className="radio-list">
+                      {ARDEN_FACTIONS.map((faction) => (
+                        <label
+                          className={`radio-option ${realmSelections[realmNumber - 1] === faction ? 'selected' : ''}`}
+                          key={`${realmNumber}-arden-${faction}`}
+                        >
+                          <input
+                            type="radio"
+                            name={`realm-${realmNumber}`}
+                            value={faction}
+                            checked={realmSelections[realmNumber - 1] === faction}
+                            onChange={(event) => setSelectionForRealm(realmNumber, event.target.value)}
+                          />
+                          <span>{faction}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </section>
+                </div>
+              </fieldset>
             </li>
           ))}
         </ul>
@@ -124,10 +149,10 @@ function App() {
         <footer className="footer">
           <div className="button-row">
             <button type="button" onClick={copySelections} disabled={!hasAnySelection}>
-              Copy Realms
+              Copy list
             </button>
             <button type="button" onClick={shareToDiscord} disabled={!hasAnySelection}>
-              Share To Discord
+              Share
             </button>
           </div>
           {!hasAnySelection && <p className="hint">Choose at least one realm to copy or share.</p>}
@@ -135,7 +160,6 @@ function App() {
           {copyState === 'failed' && (
             <p className="hint error">Copy failed. Check browser permissions and try again.</p>
           )}
-          {shareState === 'shared' && <p className="hint success">Shared. Pick Discord from the share sheet.</p>}
           {shareState === 'failed' && (
             <p className="hint error">Share unavailable on this browser/device. Use Copy instead.</p>
           )}
