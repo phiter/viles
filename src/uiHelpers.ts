@@ -1,0 +1,31 @@
+export const getCenteredScrollTop = (
+  top: number,
+  itemHeight: number,
+  viewportHeight: number,
+  currentScrollY: number,
+  scrollHeight: number,
+  clientHeight: number,
+) => {
+  const desiredScrollTop = currentScrollY + top - Math.max((viewportHeight - itemHeight) / 2, 0)
+  const maxScrollTop = scrollHeight - clientHeight
+
+  return Math.min(Math.max(desiredScrollTop, 0), maxScrollTop)
+}
+
+export const scrollElementToViewportCenter = (element: HTMLElement) => {
+  const elementRect = element.getBoundingClientRect()
+  const centeredScrollTop = getCenteredScrollTop(
+    elementRect.top,
+    elementRect.height,
+    globalThis.innerHeight,
+    globalThis.scrollY,
+    document.documentElement.scrollHeight,
+    document.documentElement.clientHeight,
+  )
+
+  globalThis.scrollTo({ top: centeredScrollTop, behavior: 'smooth' })
+}
+
+export const scrollToTop = () => {
+  globalThis.scrollTo({ top: 0, behavior: 'smooth' })
+}

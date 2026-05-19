@@ -13,11 +13,11 @@
   --error: #dc2626;
   --border: rgba(15, 23, 42, 0.12);
   --shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
-  --faction-col-bg: #fff;
+  --faction-col-bg: rgba(255, 255, 255, 0.4);
   --completed-bg-start: rgba(99, 102, 241, 0.18);
   --completed-bg-end: rgba(99, 102, 241, 0.09);
   --completed-border: rgba(79, 70, 229, 0.5);
-  --radio-selected-bg: rgba(99, 102, 241, 0.2);
+  --radio-selected-bg: rgb(127, 129, 221);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,11 +34,11 @@
     --error: #f87171;
     --border: rgba(148, 163, 184, 0.14);
     --shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
-    --faction-col-bg: rgba(15, 23, 42, 0.85);
+    --faction-col-bg: rgba(15, 23, 42, 0.45);
     --completed-bg-start: rgba(129, 140, 248, 0.28);
     --completed-bg-end: rgba(129, 140, 248, 0.14);
     --completed-border: rgba(165, 180, 252, 0.55);
-    --radio-selected-bg: rgba(129, 140, 248, 0.15);
+    --radio-selected-bg: rgba(129, 140, 248, 0.5);
   }
 }
 
@@ -55,11 +55,11 @@
     --error: #f87171;
     --border: rgba(148, 163, 184, 0.14);
     --shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
-    --faction-col-bg: rgba(15, 23, 42, 0.85);
+    --faction-col-bg: rgba(15, 23, 42, 0.45);
     --completed-bg-start: rgba(129, 140, 248, 0.28);
     --completed-bg-end: rgba(129, 140, 248, 0.14);
     --completed-border: rgba(165, 180, 252, 0.55);
-    --radio-selected-bg: rgba(129, 140, 248, 0.15);
+    --radio-selected-bg: rgba(129, 140, 248, 0.5);
 }
 
 * {
@@ -115,6 +115,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .theme-toggle {
@@ -122,15 +131,23 @@
   border: 1px solid var(--border);
   border-radius: 0.6rem;
   background: var(--surface-strong);
-  padding: 0.3rem 0.5rem;
-  font-size: 1.1rem;
+  padding: 0.38rem 0.6rem;
+  font-size: 0.82rem;
+  font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+  color: var(--ink);
+  font-weight: 600;
   line-height: 1;
   cursor: pointer;
-  transition: background 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease;
 }
 
 .theme-toggle:hover {
   background: var(--bg-mid);
+}
+
+.theme-toggle[aria-pressed='true'] {
+  border-color: var(--completed-border);
+  background: var(--radio-selected-bg);
 }
 
 .header h1 {
@@ -170,6 +187,8 @@
   border: 1px solid var(--border);
   background: var(--surface-strong);
   transition: background-color 160ms ease, border-color 160ms ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .realm-row.completed {
@@ -177,10 +196,32 @@
   border-color: var(--completed-border);
 }
 
+.realm-row.has-faction-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--faction-image);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+.realm-row.faction-anim-0.has-faction-art::after {
+  animation: factionRevealA 360ms ease-out;
+}
+
+.realm-row.faction-anim-1.has-faction-art::after {
+  animation: factionRevealB 360ms ease-out;
+}
+
 .realm-fieldset {
   border: 0;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .realm-title {
@@ -201,6 +242,7 @@
   border-radius: 0.72rem;
   padding: 0.5rem;
   background: var(--faction-col-bg);
+  backdrop-filter: blur(1px);
 }
 
 .faction-heading {
@@ -225,6 +267,7 @@
   padding: 0.2rem 0.3rem;
   font-size: 0.88rem;
   color: var(--ink);
+  background: transparent;
 }
 
 .radio-option input {
@@ -233,6 +276,7 @@
 
 .radio-option.selected {
   background: var(--radio-selected-bg);
+  color: white;
 }
 
 .footer {
@@ -286,6 +330,28 @@
   font-weight: 600;
 }
 
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 30;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--ink);
+  font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(5px);
+}
+
+.back-to-top:hover {
+  background: var(--bg-mid);
+}
+
 @media (min-width: 720px) {
   .page {
     padding: 2rem;
@@ -298,6 +364,11 @@
   .realm-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
+  }
+
+  .back-to-top {
+    right: 1.5rem;
+    bottom: 1.5rem;
   }
 }
 
@@ -321,5 +392,39 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes factionRevealA {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 0.52;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes factionRevealB {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 0.52;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .realm-row.has-faction-art::after {
+    animation: none;
   }
 }
