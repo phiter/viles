@@ -23,6 +23,11 @@ export const scrollElementToViewportCenter = (element: HTMLElement) => {
     document.documentElement.clientHeight,
   )
 
+  const scrollDelta = Math.abs(centeredScrollTop - globalThis.scrollY)
+  if (scrollDelta < 24) {
+    return
+  }
+
   globalThis.scrollTo({ top: centeredScrollTop, behavior: 'smooth' })
 }
 

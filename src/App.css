@@ -110,7 +110,7 @@
   backdrop-filter: blur(5px);
   position: relative;
   z-index: 1;
-  animation: rise 350ms ease-out;
+  animation: rise 280ms ease-out;
   user-select: none;
 }
 
@@ -427,12 +427,10 @@
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
