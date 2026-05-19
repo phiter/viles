@@ -242,7 +242,7 @@
   border-radius: 0.72rem;
   padding: 0.5rem;
   background: var(--faction-col-bg);
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(0.5px);
 }
 
 .faction-heading {

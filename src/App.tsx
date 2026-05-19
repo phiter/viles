@@ -5,7 +5,7 @@ import {
   getFactionImagesFromModules,
   getStoredBoolean,
 } from './realmHelpers'
-import { scrollElementToViewportCenter, scrollToTop } from './uiHelpers'
+import { preloadImageUrls, scrollElementToViewportCenter, scrollToTop } from './uiHelpers'
 
 const HUMAN_FACTIONS = ['Incense', 'Jadeon', 'Lupin', 'Modo', 'Skysong', 'Vim']
 const ATHAN_FACTIONS = ['Arden', 'Balo', 'Celan', 'Forta', 'Rayan', 'Voida']
@@ -63,6 +63,8 @@ function App() {
       globalThis.removeEventListener('scroll', onScroll)
     }
   }, [])
+
+  useEffect(() => preloadImageUrls(Object.values(FACTION_IMAGES)), [])
 
   const hasAnySelection = useMemo(
     () => realmSelections.some((selection) => selection.trim().length > 0),

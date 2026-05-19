@@ -29,3 +29,18 @@ export const scrollElementToViewportCenter = (element: HTMLElement) => {
 export const scrollToTop = () => {
   globalThis.scrollTo({ top: 0, behavior: 'smooth' })
 }
+
+export const preloadImageUrls = (urls: string[]) => {
+  const preloadedImages = urls.map((url) => {
+    const image = new Image()
+    image.decoding = 'async'
+    image.src = url
+    return image
+  })
+
+  return () => {
+    preloadedImages.forEach((image) => {
+      image.src = ''
+    })
+  }
+}
