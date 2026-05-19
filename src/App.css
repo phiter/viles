@@ -18,6 +18,7 @@
   --completed-bg-end: rgba(99, 102, 241, 0.09);
   --completed-border: rgba(79, 70, 229, 0.5);
   --radio-selected-bg: rgb(127, 129, 221);
+  --radio-hovered-bg: rgba(99, 102, 241, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,6 +40,7 @@
     --completed-bg-end: rgba(129, 140, 248, 0.14);
     --completed-border: rgba(165, 180, 252, 0.55);
     --radio-selected-bg: rgba(129, 140, 248, 0.5);
+    --radio-hovered-bg: rgba(129, 140, 248, 0.12);
   }
 }
 
@@ -60,6 +62,7 @@
     --completed-bg-end: rgba(129, 140, 248, 0.14);
     --completed-border: rgba(165, 180, 252, 0.55);
     --radio-selected-bg: rgba(129, 140, 248, 0.5);
+    --radio-hovered-bg: rgba(129, 140, 248, 0.12);
 }
 
 * {
@@ -202,8 +205,8 @@
   inset: 0;
   background-image: var(--faction-image);
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+  background-size: cover;
+  background-position: top;
   opacity: 0.52;
   pointer-events: none;
 }
@@ -273,7 +276,9 @@
 .radio-option input {
   accent-color: var(--accent-strong);
 }
-
+.radio-option:hover {
+  background: var(--radio-hovered-bg);
+}
 .radio-option.selected {
   background: var(--radio-selected-bg);
   color: white;
