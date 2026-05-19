@@ -16,7 +16,7 @@ export const buildExportPayload = (realmSelections: string[]) =>
   realmSelections
     .map((faction, index) => ({ realmNumber: index + 1, faction: faction.trim() }))
     .filter(({ faction }) => faction.length > 0)
-    .map(({ realmNumber, faction }) => `${realmNumber} ${faction}`)
+    .map(({ realmNumber, faction }) => `${realmNumber}${realmNumber < 10 ? '  ' : ' '}${faction}`)
     .join('\n')
 
 export const getFactionImagesFromModules = (modules: Record<string, string>) =>
